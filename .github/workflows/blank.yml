@@ -1,0 +1,130 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+          # Game Map
+grid_size = 10
+map = [['grass' for _ in range(grid_size)] for _ in range(grid_size)]
+# Add walls or other terrain types to the map
+
+# Player Positions
+import random
+
+player_positions = []
+num_players = 4
+for _ in range(num_players):
+    x = random.randint(0, grid_size - 1)
+    y = random.randint(0, grid_size - 1)
+    player_positions.append((x, y))
+
+# Weapon Locations
+weapon_locations = []
+num_weapons = 5
+for _ in range(num_weapons):
+    x = random.randint(0, grid_size - 1)
+    y = random.randint(0, grid_size - 1)
+    weapon_locations.append((x, y))
+
+# Player Initialization
+class Player:
+    def __init__(self, position):
+        self.position = position
+        self.health = 100
+        self.inventory = []
+
+players = []
+for position in player_positions:
+    player = Player(position)
+    players.append(player)
+
+# Bot AI (example behavior: random movement)
+def bot_move(player):
+    x, y = player.position
+    dx, dy = random.choice([(0, 1), (0, -1), (1, 0), (-1, 0)])
+    new_x = max(0, min(x + dx, grid_size - 1))
+    new_y = max(0, min(y + dy, grid_size - 1))
+    player.position = (new_x, new_y)
+
+for player in players[1:]:
+    bot_move(player)
+
+# Weapon System
+class Weapon:
+    def __init__(self, name, damage):
+        self.name = name
+        self.damage = damage
+
+weapons_available= [
+   Weapon("Pistol", 20),
+   Weapon("Shotgun", 40),
+   Weapon("Assault Rifle", 30)
+]
+
+def pickup_weapon(player):
+    x, y = player.position
+    if (x, y) in weapon_locations:
+        weapon_index = random.randint(0, len(weapons_available) - 1)
+        weapon = weapons_available[weapon_index]
+        player.inventory.append(weapon)
+        weapon_locations.remove((x, y))
+
+for player in players:
+    pickup_weapon(player)
+
+# Game Loop
+while len(players) > 1:
+    for player in players:
+        # Player actions and updates
+        if isinstance(player, HumanPlayer):
+            # Handle user input for movement and actions
+            pass
+        else:
+            bot_move(player)
+        
+        # Check for collisions with weapons or other players
+        
+        # Check for deaths/eliminations
+
+# Graphics and UI
+import pygame
+
+# Initialize pygame and set up the game window
+
+# Load visual assets (sprites, icons, etc.)
+
+# Render the game map, players, weapons, and UI elements
+
+# Update the display
+
